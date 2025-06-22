@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         BACKEND_DIR = 'backend'
-        FRONTEND_DIR = 'employee-frontend'
+        FRONTEND_DIR = 'frontend'
     }
 
     stages {
@@ -41,7 +41,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh 'docker build -t employee-app-backend ./backend'
-                sh 'docker build -t employee-app-frontend ./employee-frontend'
+                sh 'docker build -t employee-app-frontend ./frontend'
             }
         }
 
