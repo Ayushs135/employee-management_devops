@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        BACKEND_DIR = 'backend'
-        FRONTEND_DIR = 'frontend'
-    }
-
     stages {
         stage('Clone Repository') {
             steps {
@@ -13,35 +8,22 @@ pipeline {
             }
         }
 
-        stage('Build Backend') {
+        stage('Build & Test Backend + Frontend') {
             steps {
-                dir("${BACKEND_DIR}") {
-                    sh 'mvn clean install'
+                dir("backend") {
+                    sh 'mvn clean install -DskipTests'
+                    sh 'mvn test'
                 }
-            }
-        }
-
-        stage('Build Frontend') {
-            steps {
-                dir("${FRONTEND_DIR}") {
+                dir("frontend") {
                     sh 'npm install'
                     sh 'CI=false npm run build'
                 }
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                dir("${BACKEND_DIR}") {
-                    sh 'mvn test'
-                }
-            }
-        }
-
         stage('Docker Build') {
             steps {
-                sh 'docker build -t employee-app-backend ./backend'
-                sh 'docker build -t employee-app-frontend ./frontend'
+                sh 'docker build -t employee-app .'
             }
         }
 
@@ -49,18 +31,15 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    sh 'docker tag employee-app-backend $DOCKER_USER/employee-app-backend'
-                    sh 'docker push $DOCKER_USER/employee-app-backend'
-
-                    sh 'docker tag employee-app-frontend $DOCKER_USER/employee-app-frontend'
-                    sh 'docker push $DOCKER_USER/employee-app-frontend'
+                    sh 'docker tag employee-app $DOCKER_USER/employee-app'
+                    sh 'docker push $DOCKER_USER/employee-app'
                 }
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'You can define deployment with Docker Compose, Kubernetes, etc.'
+                echo 'Deploy stage can be configured for Render or another cloud provider'
             }
         }
     }
