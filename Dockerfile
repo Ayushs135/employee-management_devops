@@ -24,7 +24,7 @@ RUN mvn clean package -DskipTests
 # =========================
 # 3. Final Image
 # =========================
-FROM eclipse-temurin:17-jdk-slim
+FROM eclipse-temurin:17-jdk-jammy
 WORKDIR /app
 COPY --from=backend-build /app/target/*.jar app.jar
 
