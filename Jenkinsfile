@@ -8,12 +8,17 @@ pipeline {
             }
         }
 
-        stage('Build & Test Backend + Frontend') {
+        stage('Build & Test Backend') {
             steps {
                 dir("backend") {
                     sh 'mvn clean install -DskipTests'
                     sh 'mvn test'
                 }
+            }
+        }
+
+        stage('Build Frontend') {
+            steps {
                 dir("frontend") {
                     sh 'npm install'
                     sh 'CI=false npm run build'
@@ -21,25 +26,9 @@ pipeline {
             }
         }
 
-        stage('Docker Build') {
+        stage('Notify') {
             steps {
-                sh 'docker build -t employee-app .'
-            }
-        }
-
-        stage('Push to DockerHub') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    sh 'docker tag employee-app $DOCKER_USER/employee-app'
-                    sh 'docker push $DOCKER_USER/employee-app'
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploy stage can be configured for Render or another cloud provider'
+                echo 'Build and tests passed. Render will handle deployment automatically.'
             }
         }
     }
