@@ -57,13 +57,19 @@ Monitoring → Grafana + Graphite
 
 ## 📷 Screenshots
 
-(Add these — VERY IMPORTANT)
+## 📷 Screenshots
 
-* Home Page
-* Add Employee Form
-* Dashboard / Table View
-* Grafana Dashboard
+### Dashboard
+![Dashboard](images/dashboard.png)
 
+### Add Employee
+![Form](images/add.png)
+
+### Update Employee Detail
+![Update](images/Update.png)
+
+### Grafana Monitoring
+![Grafana](images/grafana.png)
 ---
 
 ## ⚙️ Setup Instructions
