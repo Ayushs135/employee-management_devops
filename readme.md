@@ -4,6 +4,10 @@ A full-stack Employee Management System built with **React, Spring Boot, and Pos
 
 ---
 
+## ❓ Why This Project?
+
+This project was built to understand how real-world applications are developed, deployed, and monitored using modern DevOps practices.
+
 ## 🚀 Features
 
 * ➕ Add Employee
@@ -67,8 +71,8 @@ Monitoring → Grafana + Graphite
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/Ayushs135/<repo-name>.git
-cd <repo-name>
+git clone https://github.com/Ayushs135/employee-management_devops.git
+cd employee-management_devops
 ```
 
 ### 2️⃣ Backend Setup
