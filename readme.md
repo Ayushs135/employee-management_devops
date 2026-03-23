@@ -55,21 +55,21 @@ Monitoring → Grafana + Graphite
 
 ---
 
-## 📷 Screenshots
 
 ## 📷 Screenshots
 
 ### Dashboard
-![Dashboard](images/dashboard.png)
+![Dashboard](images/Dashboard.png)
 
 ### Add Employee
-![Form](images/add.png)
+![Form](images/Add.png)
 
 ### Update Employee Detail
 ![Update](images/Update.png)
 
 ### Grafana Monitoring
-![Grafana](images/grafana.png)
+![Grafana](images/Grafana.png)
+
 ---
 
 ## ⚙️ Setup Instructions
